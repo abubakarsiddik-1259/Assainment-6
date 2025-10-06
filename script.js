@@ -10,6 +10,9 @@ const bookmarkContainer = document.getElementById("bookmarkContainer")
 const detailsBox = document.getElementById("details-container")
 
 
+
+
+
 let bookmarks = []; 
 
 const loadCategory = () => {
@@ -26,10 +29,6 @@ const loadCategory = () => {
         
     })
 }
-
-
-
-
 
 
 
@@ -68,10 +67,6 @@ const showCategory = (categories) => {
 
 
 
-
-
-
-
 const loadNewsCategory = (categoryId) => {
     fetch(`https://openapi.programming-hero.com/api/category/${categoryId}`)
 
@@ -88,12 +83,6 @@ const loadNewsCategory = (categoryId) => {
 
 }
 
-
-
-
-
-
-
 const loadAllNews = () => {
     fetch("https://openapi.programming-hero.com/api/plants")
     .then(res => res.json())
@@ -101,16 +90,6 @@ const loadAllNews = () => {
     showLoading ()
     .catch(err => console.log(err));
 };
-
-
-
-
-
-
-
-
-
-
 
 
 const showsByCategories = (plants) => {
@@ -175,9 +154,6 @@ console.log(plantTree);
 
 const detailsBox = document.getElementById("details-containet")
 
-
-
-    
     
 detailsBox.innerHTML =`
 
@@ -185,7 +161,7 @@ detailsBox.innerHTML =`
 <div class="card  py-2 mx-auto h-auto">
     <h1 class="text-xl font-semibold pb-2 "> ${plantTree.name}</h1>
   <div>
-    <img class ='rounded-lg w-full h-50 object-cover'
+    <img class ='rounded-lg w-full h-60 object-cover'
       src="${plantTree.image}"
       alt="Shoes" />
   </div>
@@ -211,11 +187,11 @@ document.getElementById("my_modal_5").showModal()
 
 
 
+
+
+
+
 }
-
-
-
-
 
 
 
@@ -294,7 +270,6 @@ bookmarks.forEach(bookmark => {
 
 
 
-
 const heandleDeleteBookmark = (bookmarId) => {
     const filtereBookmarks = bookmarks.filter(bookmark => bookmark.id != bookmarId)
     bookmarks = filtereBookmarks
@@ -302,27 +277,17 @@ const heandleDeleteBookmark = (bookmarId) => {
 }
 
 
+
 const showLoading = () => {
     newsContainer.innerHTML = `
     
 
  <div class=" text-center items-center col-span-4"><span class="loading loading-bars mx-auto loading-xl"></span></div>
-
+  
     
     
     `
 }
-
-
-
-
-
-
-
-
-
-
-
 
  loadCategory()
 
