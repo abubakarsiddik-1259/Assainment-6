@@ -9,9 +9,6 @@ const bookmarkContainer = document.getElementById("bookmarkContainer")
 
 const detailsBox = document.getElementById("details-container")
 
-// const my_modal = document.getElementById("my_modal")
-
-
 
 let bookmarks = []; 
 
@@ -117,11 +114,13 @@ const loadAllNews = () => {
 
 
 const showsByCategories = (plants) => {
+    console.log(plants.id);
     
     newsContainer.innerHTML = " ";
     
     console.log(plants);
     plants.forEach(plant => {
+        
         
         newsContainer.innerHTML +=`
         
@@ -132,12 +131,12 @@ const showsByCategories = (plants) => {
        />
   </div>
   <div class="card-body p-0">
-    <h2 onclick="loadDetailse(${plant.id})" class="card-title text-base cursor-pointer text-[#1F2937] font-semibold pt-2 ">${plant.name}</h2>
+    <h2 onclick="loadWordDetail(${plant.id})" class="calrd-title text-base cursor-pointer text-[#1F2937] font-semibold pt-2 ">${plant.name}</h2>
     <p class="text-[#1F2937]">${plant.description
 }</p>
     <div id = '${plant.id}' class="flex justify-between items-center">
         <h2 class="text-[#15803D] bg-green-100 px-2 py-1 font-semibold  rounded-2xl text-base">${plant.category}</h2>
-        <h2 class="font-semibold text-base ">${plant.price}</h2>
+        <h2 class="font-semibold text-base "><span class='font-bold text-lg'>৳</span>${plant.price}</h2>
     </div>
 
     <div class="card-actions justify-end">
@@ -159,42 +158,44 @@ const showsByCategories = (plants) => {
 //  ............ MODUL ....... 
 
 
+const loadWordDetail = async (id) =>{
+const url = `https://openapi.programming-hero.com/api/plant/${id}`
 
 
-const loadDetailse = async  (id) => {
-    const url = `https://openapi.programming-hero.com/api/category/${id}`
+const res = await fetch(url);
+const details = await res.json()
+console.log(details);
+displayPlantsDetails(details.plants)
 
-    // console.log(url);
-    const res = await fetch(url);
-    const details = await res.json() ;
-    displyaPlantsDetails (details.plants)
+
+} 
+
+const displayPlantsDetails = (plantTree) =>{
+console.log(plantTree);
+
+const detailsBox = document.getElementById("details-containet")
+
+
+
     
-
-}
-
-
-
-const displyaPlantsDetails = (myPlant) => {
-console.log(myPlant);
-
-myPlant.forEach(showsPlans => {
-detailsBox.innerHTML=`
+    
+detailsBox.innerHTML =`
 
 
-<div class="card  py-6 mx-auto h-auto">
-    <h1 class="text-xl font-semibold pb-2 ">Banyan Tree</h1>
+<div class="card  py-2 mx-auto h-auto">
+    <h1 class="text-xl font-semibold pb-2 "> ${plantTree.name}</h1>
   <div>
     <img class ='rounded-lg w-full h-50 object-cover'
-      src="${showsPlans.image}"
+      src="${plantTree.image}"
       alt="Shoes" />
   </div>
   <div class="card-body">
 
-    <h2 class="text-base"><span class="text-lg font-semibold">Catogory : </span> shade Tree</h2>
+    <h2 class="text-base"><span class="text-lg font-semibold">Catogory : </span> ${plantTree.category}</h2>
 
-    <h2 class=""><span class="text-lg font-semibold" >Price :</span> 1200</h2>
+    <h2 class=""><span class="text-lg font-semibold" >Price :</span> ${plantTree.price}</h2>
 
-    <p> <span class="text-lg font-semibold">Desecription :</span>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+    <p> <span class="text-lg font-semibold">Desecription :</span>${plantTree.description}</p>
    
     </div>
   </div>
@@ -203,18 +204,15 @@ detailsBox.innerHTML=`
 
 
 
-
-
-
-
-
-
 `
-})
-my_modal.showModal();
+
+document.getElementById("my_modal_5").showModal()
+
+
 
 
 }
+
 
 
 
@@ -277,7 +275,7 @@ bookmarks.forEach(bookmark => {
        <div class="bg-[#F0FDF4] p-2 m-2 flex justify-between items-center shadow-sm ">
                     <div class="">
                          <h1 class="text-[#1F2937] font-semibold text-base">${bookmark.title}</h1>
-                    <h2>৳${bookmark.price}</h2>
+                    <h2>${bookmark.price}</h2>
                     </div>
                     <button onClick = "heandleDeleteBookmark(${bookmark.id})"><i class="fa-solid fa-xmark text-gray-400 cursor-pointer"></i></button>
                     
@@ -295,14 +293,6 @@ bookmarks.forEach(bookmark => {
 
 
 
-// const handelBookmark = (bookmarkId) => {
-//     console.log(bookmarkId);
-    
-//     const filterBookmark = bookmarks.filter (bookmark => bookmark.id == bookmarkId)
-//     bookmarks = filterBookmark
-//     showBookmaark (bookmarks)
-// }
-
 
 
 const heandleDeleteBookmark = (bookmarId) => {
@@ -312,22 +302,12 @@ const heandleDeleteBookmark = (bookmarId) => {
 }
 
 
-
-
-
-
-
 const showLoading = () => {
     newsContainer.innerHTML = `
     
 
  <div class=" text-center items-center col-span-4"><span class="loading loading-bars mx-auto loading-xl"></span></div>
 
-    
-    
-    
-    
-    
     
     
     `
