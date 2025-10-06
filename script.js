@@ -161,6 +161,66 @@ const showsByCategories = (plants) => {
 
 
 
+const loadDetailse = async  (id) => {
+    const url = `https://openapi.programming-hero.com/api/category/${id}`
+
+    // console.log(url);
+    const res = await fetch(url);
+    const details = await res.json() ;
+    displyaPlantsDetails (details.plants)
+    
+
+}
+
+
+
+const displyaPlantsDetails = (myPlant) => {
+console.log(myPlant);
+
+myPlant.forEach(showsPlans => {
+detailsBox.innerHTML=`
+
+
+<div class="card  py-6 mx-auto h-auto">
+    <h1 class="text-xl font-semibold pb-2 ">Banyan Tree</h1>
+  <div>
+    <img class ='rounded-lg w-full h-50 object-cover'
+      src="${showsPlans.image}"
+      alt="Shoes" />
+  </div>
+  <div class="card-body">
+
+    <h2 class="text-base"><span class="text-lg font-semibold">Catogory : </span> shade Tree</h2>
+
+    <h2 class=""><span class="text-lg font-semibold" >Price :</span> 1200</h2>
+
+    <p> <span class="text-lg font-semibold">Desecription :</span>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+   
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+`
+})
+my_modal.showModal();
+
+
+}
+
+
+
+
+
+
 
 
 
